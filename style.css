@@ -54,10 +54,12 @@ body{
     display: flex;
     list-style: none;
 }
+
 .result-details li:not(:first-child){
-    
+    padding-left: 22px;
     border-left: 1px solid #ccc;
 }
+
 .result-details p{
     font-size: 19px;
 }
