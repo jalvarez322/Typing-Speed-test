@@ -183,12 +183,16 @@ li:not(:first-child) span{
 }
 .modal {
   display: none; /* Hide the modal by default */
+  border: #888;
+  border-radius: 2px;
   position: fixed; /* Position the modal */
   z-index: 1; /* Ensure it appears on top of other content */
+  top: 500px;
+  width: 700px;
 }
 
 .modal-content {
-  background-color: #fefefe; /* White background */
+  background-color: #436f8a; /* White background */
   margin: 15% auto; /* Center the modal vertically and horizontally */
   padding: 20px;
   border: 1px solid #888;
