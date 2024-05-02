@@ -1,15 +1,15 @@
 const typingText = document.querySelector(".typing-text p"),
-inpField = document.querySelector(".wrapper .input-field"),
-tryAgainBtn = document.querySelector(".content button"),
-timeTag = document.querySelector(".time span b"),
-mistakeTag = document.querySelector(".mistake span"),
-wpmTag = document.querySelector(".wpm span"),
-cpmTag = document.querySelector(".cpm span");
+    inpField = document.querySelector(".wrapper .input-field"),
+    tryAgainBtn = document.querySelector(".content button"),
+    timeTag = document.querySelector(".time span b"),
+    mistakeTag = document.querySelector(".mistake span"),
+    wpmTag = document.querySelector(".wpm span"),
+    cpmTag = document.querySelector(".cpm span");
 
 let timer,
-maxTime = 60,
-timeLeft = maxTime,
-charIndex = mistakes = isTyping = 0;
+    maxTime = 60,
+    timeLeft = maxTime,
+    charIndex = mistakes = isTyping = 0;
 
 function loadParagraph() {
     const ranIndex = Math.floor(Math.random() * paragraphs.length);
@@ -26,21 +26,21 @@ function loadParagraph() {
 function initTyping() {
     let characters = typingText.querySelectorAll("span");
     let typedChar = inpField.value.split("")[charIndex];
-    if(charIndex < characters.length - 1 && timeLeft > 0) {
-        if(!isTyping) {
+    if (charIndex < characters.length - 1 && timeLeft > 0) {
+        if (!isTyping) {
             timer = setInterval(initTimer, 1000);
             isTyping = true;
         }
-        if(typedChar == null) {
-            if(charIndex > 0) {
+        if (typedChar == null) {
+            if (charIndex > 0) {
                 charIndex--;
-                if(characters[charIndex].classList.contains("incorrect")) {
+                if (characters[charIndex].classList.contains("incorrect")) {
                     mistakes--;
                 }
                 characters[charIndex].classList.remove("correct", "incorrect");
             }
         } else {
-            if(characters[charIndex].innerText == typedChar) {
+            if (characters[charIndex].innerText == typedChar) {
                 characters[charIndex].classList.add("correct");
             } else {
                 mistakes++;
@@ -51,23 +51,25 @@ function initTyping() {
         characters.forEach(span => span.classList.remove("active"));
         characters[charIndex].classList.add("active");
 
-        let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
+        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
         wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-        
+
         wpmTag.innerText = wpm;
         mistakeTag.innerText = mistakes;
         cpmTag.innerText = charIndex - mistakes;
     } else {
         clearInterval(timer);
         inpField.value = "";
-    }   
+        // Call the function to show the score popup
+        showScorePopup();
+    }
 }
 
 function initTimer() {
-    if(timeLeft > 0) {
+    if (timeLeft > 0) {
         timeLeft--;
         timeTag.innerText = timeLeft;
-        let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
+        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
         wpmTag.innerText = wpm;
     } else {
         clearInterval(timer);
@@ -86,6 +88,36 @@ function resetGame() {
     cpmTag.innerText = 0;
 }
 
+// Call the function to load paragraph initially
 loadParagraph();
+
+// Add event listeners
 inpField.addEventListener("input", initTyping);
 tryAgainBtn.addEventListener("click", resetGame);
+
+// Function to display the popup with scores
+function showScorePopup() {
+    const modal = document.getElementById("scoreModal");
+    const spanWPM = document.getElementById("popup-wpm");
+    const spanMistakes = document.getElementById("popup-mistakes");
+    const spanCPM = document.getElementById("popup-cpm");
+
+    spanWPM.textContent = wpmTag.innerText;
+    spanMistakes.textContent = mistakeTag.innerText;
+    spanCPM.textContent = cpmTag.innerText;
+
+    modal.style.display = "block";
+
+    // Close the modal when the close button is clicked
+    const closeBtn = document.querySelector(".modal-content .close");
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Also close the modal when clicking outside the modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}
