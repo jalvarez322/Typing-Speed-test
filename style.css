@@ -192,6 +192,11 @@ li:not(:first-child) span{
   width: 700px;
 }
 
+.modal-content h1 {
+  text-align: -webkit-matching-parent;
+}
+
+
 .modal-content {
   background-color: #436f8a; /* White background */
   margin: 15% auto; /* Center the modal vertically and horizontally */
@@ -199,7 +204,10 @@ li:not(:first-child) span{
   border: 1px solid #888;
   width: 80%; /* Set width of modal */
   color: #fff;
-}
+  text-align: center;
+
+  }
+
 
 .close {
   color: #aaa;
@@ -214,3 +222,4 @@ li:not(:first-child) span{
   text-decoration: none;
   cursor: pointer;
 }
+
