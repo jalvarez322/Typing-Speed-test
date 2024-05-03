@@ -198,6 +198,7 @@ li:not(:first-child) span{
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Set width of modal */
+  color: #fff;
 }
 
 .close {
@@ -209,7 +210,7 @@ li:not(:first-child) span{
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   cursor: pointer;
 }
