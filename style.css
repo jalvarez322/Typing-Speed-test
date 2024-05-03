@@ -107,7 +107,7 @@ body{
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  width: calc(100% - 140px);
+  width: calc(200% - 140px);
   justify-content: space-between;
 }
 .result-details li{
@@ -116,6 +116,7 @@ body{
   list-style: none;
   position: relative;
   align-items: center;
+  
 }
 .result-details li:not(:first-child){
   padding-left: 22px;

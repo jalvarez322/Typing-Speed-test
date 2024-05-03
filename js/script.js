@@ -1,6 +1,6 @@
 const typingText = document.querySelector(".typing-text p"),
     inpField = document.querySelector(".wrapper .input-field"),
-    tryAgainBtn = document.querySelector(".content button"),
+    tryAgainBtn = document.getElementById("tryAgainBtn"),
     timeTag = document.querySelector(".time span b"),
     mistakeTag = document.querySelector(".mistake span"),
     wpmTag = document.querySelector(".wpm span"),
@@ -95,7 +95,7 @@ loadParagraph();
 inpField.addEventListener("input", initTyping);
 tryAgainBtn.addEventListener("click", resetGame);
 
-// Function to display the popup with scores
+/// Function to display the popup with scores and handle "Try Again" button click
 function showScorePopup() {
     const modal = document.getElementById("scoreModal");
     const spanWPM = document.getElementById("popup-wpm");
@@ -120,4 +120,12 @@ function showScorePopup() {
             modal.style.display = "none";
         }
     }
+
+    // Handle "Try Again" button click using event delegation
+    modal.addEventListener("click", function(event) {
+        if (event.target && event.target.id === "tryAgainBtn") {
+            resetGame(); // Call the resetGame() function to reset the game
+            modal.style.display = "none"; // Close the modal
+        }
+    });
 }
